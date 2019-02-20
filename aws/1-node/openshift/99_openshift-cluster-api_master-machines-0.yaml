@@ -1,0 +1,59 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: Machine
+metadata:
+  creationTimestamp: null
+  labels:
+    sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+    sigs.k8s.io/cluster-api-machine-role: master
+    sigs.k8s.io/cluster-api-machine-type: master
+  name: {{ settings.clusterName }}-master-0
+  namespace: openshift-machine-api
+spec:
+  metadata:
+    creationTimestamp: null
+  providerSpec:
+    value:
+      ami:
+        id: {{ settings.AmiID }}
+      apiVersion: awsproviderconfig.openshift.io/v1beta1
+      blockDevices:
+      - ebs:
+          iops: 0
+          volumeSize: 120
+          volumeType: gp2
+      deviceIndex: 0
+      iamInstanceProfile:
+        id: {{ settings.clusterName }}-master-profile
+      instanceType: m4.xlarge
+      kind: AWSMachineProviderConfig
+      loadBalancers:
+      - name: {{ settings.clusterName }}-ext
+        type: network
+      - name: {{ settings.clusterName }}-int
+        type: network
+      metadata:
+        creationTimestamp: null
+      placement:
+        availabilityZone: {{ settings.AWSAvailabilityZone }}
+        region: {{ settings.AWSRegion }}
+      publicIp: true
+      securityGroups:
+      - filters:
+        - name: tag:Name
+          values:
+          - {{ settings.clusterName }}_master_sg
+      subnet:
+        filters:
+        - name: tag:Name
+          values:
+          - {{ settings.clusterName }}-private-{{ settings.AWSAvailabilityZone }}
+      tags:
+      - name: openshiftClusterID
+        value: {{ settings.clusterID }}
+      - name: kubernetes.io/cluster/{{ settings.clusterName }}
+        value: owned
+      userDataSecret:
+        name: master-user-data
+  versions:
+    kubelet: ""
+status: {}

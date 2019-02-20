@@ -1,0 +1,17 @@
+apiVersion: config.openshift.io/v1
+kind: Network
+metadata:
+  creationTimestamp: null
+  name: cluster
+spec:
+  clusterNetwork:
+  - cidr: {{ settings.clusterCIDR }}
+    hostPrefix: 23
+  networkType: {{ settings.SDNType }}
+  serviceNetwork:
+  - {{ settings.serviceNetworkCIDR }}
+status:
+  clusterNetwork: null
+  clusterNetworkMTU: 0
+  networkType: ""
+  serviceNetwork: null
