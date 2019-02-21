@@ -1,0 +1,55 @@
+apiVersion: v1
+items:
+- apiVersion: machine.openshift.io/v1beta1
+  kind: MachineSet
+  metadata:
+    creationTimestamp: null
+    labels:
+      sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+      sigs.k8s.io/cluster-api-machine-role: worker
+      sigs.k8s.io/cluster-api-machine-type: worker
+    name: {{ settings.clusterName }}-worker-0
+    namespace: openshift-machine-api
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+        sigs.k8s.io/cluster-api-machineset: {{ settings.clusterName }}-worker-0
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+          sigs.k8s.io/cluster-api-machine-role: worker
+          sigs.k8s.io/cluster-api-machine-type: worker
+          sigs.k8s.io/cluster-api-machineset: {{ settings.clusterName }}-worker-0
+      spec:
+        metadata:
+          creationTimestamp: null
+        providerSpec:
+          value:
+            apiVersion: libvirtproviderconfig.k8s.io/v1alpha1
+            autostart: false
+            cloudInit: null
+            domainMemory: 2048
+            domainVcpu: 2
+            ignKey: ""
+            ignition:
+              userDataSecret: worker-user-data
+            kind: LibvirtMachineProviderConfig
+            networkInterfaceAddress: 192.168.126.0/24
+            networkInterfaceHostname: ""
+            networkInterfaceName: test
+            networkUUID: ""
+            uri: {{ settings.libvirtURI }}
+            volume:
+              baseVolumeID: /var/lib/libvirt/images/test-base
+              poolName: default
+              volumeName: ""
+        versions:
+          kubelet: ""
+  status:
+    replicas: 0
+kind: List
+metadata: {}
