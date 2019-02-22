@@ -6,7 +6,7 @@ data:
     compute:
     - name: worker
       platform: {}
-      replicas: {{ settings.numWorkers }}
+      replicas: 1
     controlPlane:
       name: master
       platform: {}

@@ -11,7 +11,7 @@ items:
     name: {{ settings.clusterName }}-worker-{{ settings.AWSAvailabilityZone }}
     namespace: openshift-machine-api
   spec:
-    replicas: 0
+    replicas: 1
     selector:
       matchLabels:
         sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
