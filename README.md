@@ -71,3 +71,17 @@ of the specified cluster
 
 In order to destroy the running cluster, and clean up environment, just use
 `make clean` command.
+
+## Building and consuming your own installer
+
+The openshift-installer binaries are published on
+https://github.com/openshift/installer/releases. For faster deploy, you can grab
+the instalelr from here. However, there may be situations where you need to
+compile your own installer (such as the case of libvirt), or you need a newer
+version. In that case, you can build it following the instructions on
+[https://github.com/openshift/installer](https://github.com/openshift/installer)
+
+Then you can export the path to the new installer before running make:
+
+    export INSTALLER_PATH=http://<url_to_binary>/openshift-install
+
