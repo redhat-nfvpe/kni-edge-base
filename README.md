@@ -66,3 +66,8 @@ SETTINGS can be a path to local file, or an url, will be queried with curl.
 
 The make process will create the needed artifacts and will start the deployment
 of the specified cluster
+
+## How to destroy the cluster
+
+In order to destroy the running cluster, and clean up environment, just use
+`make clean` command.
