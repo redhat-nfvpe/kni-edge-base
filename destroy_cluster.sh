@@ -3,5 +3,11 @@
 BUILDDIR="$1"
 pushd ${BUILDDIR}
 ./openshift-installer destroy cluster
+
+RESULT=$?
+
 popd
-rm -rf ${BUILDDIR}
+
+if [ $RESULT -eq 0 ]; then
+    rm -rf ${BUILDDIR}
+fi
