@@ -1,0 +1,25 @@
+apiVersion: v1beta2
+baseDomain: {{ settings.baseDomain }}
+machines:
+- name: master
+  platform: {}
+  replicas: 1
+- name: worker
+  platform: {}
+  replicas: 1
+metadata:
+  creationTimestamp: null
+  name: {{ settings.clusterName }}
+networking:
+  clusterNetworks:
+  - cidr: {{ settings.clusterCIDR }}
+    hostSubnetLength: {{ settings.clusterSubnetLength }}
+  machineCIDR: {{ settings.machineCIDR }}
+  serviceCIDR: {{ settings.serviceCIDR }}
+  type: {{ settings.SDNType }}
+platform:
+  aws:
+    region: {{ settings.AWSRegion }}
+pullSecret: '{{ settings.pullSecret }}'
+sshKey: |
+  {{ settings.SSHKey }}

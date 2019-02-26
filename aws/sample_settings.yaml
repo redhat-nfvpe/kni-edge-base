@@ -1,0 +1,9 @@
+settings:
+  baseDomain: "aws.kni.edge-sites.net"
+  clusterName: "test"
+  clusterCIDR: "10.128.0.0/14"
+  clusterSubnetLength: 9
+  machineCIDR: "10.0.0.0/16"
+  serviceCIDR: "172.30.0.0/16"
+  SDNType: "OpenShiftSDN"
+  AWSRegion: "us-west-1"
