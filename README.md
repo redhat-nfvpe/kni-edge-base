@@ -67,6 +67,44 @@ SETTINGS can be a path to local file, or an url, will be queried with curl.
 The make process will create the needed artifacts and will start the deployment
 of the specified cluster
 
+## How to deploy for Libvirt
+
+First of all, we need to prepare a host in order to configure libvirt, iptables, permissions, etc. So far this is a manual process:
+
+[https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md](https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md)
+
+Unfortunately, Libvirt is only for development purposes from the OpenShift perspective, so binary is not compiled with the libvirt bits. The user will have to compile it by his/her own.
+The link pasted above, also contains the instructions to compile the installer with the correct tags. Once it is compiled correctly, you will have to point to the binary from the execution command (make).
+
+There is only one target for Livirt right now, and it will deploy 1 Master VM and 1 Worker VM.
+
+	make libvirt-1-node CREDENTIALS=<path_to_private_repo> SETTINGS=file:///<path_to_sample_settings> INSTALLER_PATH=file:///<path_to_openshift_installer>
+
+A sample settings.yaml file has been created specifically for Libvirt targets. It needs to look like:
+
+    settings:
+      baseDomain: "<base_domain>"
+      clusterName: "<cluster_name>"
+      clusterCIDR: "10.128.0.0/14"
+      clusterSubnetLength: 9
+      machineCIDR: "10.0.0.0/16"
+      serviceCIDR: "172.30.0.0/16"
+      SDNType: "OpenShiftSDN"
+      libvirtURI: "<libvirt_host_ip>"
+
+Where:
+- `<base_domain>` is the DNS zone matching with the one created on Route53
+- `<cluster_name>` is the name you are going to give to the cluster
+- `<libvirt_host_ip>` is the host IP where libvirt is configured (i.e. qemu+tcp://192.168.122.1/system)
+
+The rest of the options are exactly the same as in an AWS deployment.
+
+## How to destroy the cluster
+
+In order to destroy the running cluster, and clean up environment, just use
+`make clean` command.
+
+
 ## How to destroy the cluster
 
 In order to destroy the running cluster, and clean up environment, just use
