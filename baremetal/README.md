@@ -144,6 +144,20 @@ When using real baremetal servers and not libvirt, the network configured by lib
 
 In order to make it work, you need to previously have copied the ignition files and images inside that nginx doc root.
 
+**5.1. Optionally, enable introspection**
+The RCHOS image have an introspection functionality attached. When an
+introspection endpoint is provided, the image will generate a JSON blob with all
+the information for the machine, based on this tool:
+[https://github.com/jaypipes/ghw](https://github.com/jaypipes/ghw)
+The introspection endpoint could analyze that, and return an ignition file as a
+result of that introspection. This means that the coreos.inst.ignition_url
+endpoint wil be ignored, and the ignition file provided to the machine will be
+the one returned by the introspection endpoint.
+In order to enable introspection, please add this to the kernel parameters in
+bootstrap.ipxe:
+
+    coreos.inst.introspection_endpoint=http://<ip_for_introspection_endpoint>
+
 **6. Start bootstrap vm and servers**
 First start the bootstrap vm and check that it's up and running. After you can see the bootstrap started, just power on the servers (manually or using IPMI). The servers should boot from PXE and get and IP and PXE offer from that dnsmasq, properly reading bootstrap.ipxe.
 This will cause that coreos installer image is booted on ramdisk, and will download the final coreos raw image, as well as the ignition file. The final image and ignition file will be copied on the specified disk, and the system will be rebooted.
