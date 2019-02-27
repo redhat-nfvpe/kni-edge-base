@@ -1,5 +1,5 @@
 settings:
-  baseDomain: "kni.ysoft.biz"
+  baseDomain: "aws.kni.edge-sites.net"
   clusterName: "test"
   clusterCIDR: "10.128.0.0/14"
   clusterSubnetLength: 9

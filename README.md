@@ -6,13 +6,10 @@ infrastructure across several footprints (AWS, Libvirt, Baremetal, etc).
 
 ## Dependencies
 
-You will need to create a CoreOS account on [http://account.coreos.com/](http://account.coreos.com/)
+You will need to create an account on [http://cloud.openshift.com/](http://cloud.openshift.com/)
 This is needed to have download access to the OpenShift installer artifacts.
-After that, you will need to download the Pull Secret, and format it in 1-line
-style.
-
-    { "auths": { "quay.io": { "auth": "XXX", "email": "" } } }
-
+After that, you will need to download the Pull Secret from
+[https://cloud.openshift.com/clusters/install](https://cloud.openshift.com/clusters/install) - Step 4: Deploy the Cluster
 
 ## How to deploy
 
@@ -99,11 +96,17 @@ Where:
 
 The rest of the options are exactly the same as in an AWS deployment.
 
-## How to destroy the cluster
 
-In order to destroy the running cluster, and clean up environment, just use
-`make clean` command.
+## How to use the cluster
 
+After the deployment finishes, a `kubeconfig` file will be placed inside
+build/auth directory:
+
+    export KUBECONFIG=./build/auth/kubeconfig
+
+Then cluster can be managed with oc. You can get the client on this link
+[https://cloud.openshift.com/clusters/install](https://cloud.openshift.com/clusters/install)
+- Step 5: Access your new cluster.
 
 ## How to destroy the cluster
 

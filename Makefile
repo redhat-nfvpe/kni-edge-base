@@ -3,10 +3,11 @@
 AWS_LAUNCHER      = ./aws/launch_deploy.sh
 LIBVIRT_LAUNCHER  = ./libvirt/launch_deploy.sh
 CLUSTER_DESTROYER = ./destroy_cluster.sh
+IMAGE_BUILDER     = ./baremetal/build_images.sh
 BUILDDIR          = build
 
 ifndef INSTALLER_PATH
-override INSTALLER_PATH = https://github.com/openshift/installer/releases/download/v0.12.0/openshift-install-linux-amd64
+override INSTALLER_PATH = https://github.com/openshift/installer/releases/download/v0.13.0/openshift-install-linux-amd64
 endif
 
 help:
@@ -30,6 +31,11 @@ libvirt-1-node:
 	@echo
 	@echo "Launching libvirt 1-node deploy"
 	${LIBVIRT_LAUNCHER} 1-node ${BUILDDIR} ${CREDENTIALS} ${SETTINGS} ${INSTALLER_PATH}
+
+pxe-images:
+	@echo
+	@echo "Building PXE images for baremetal"
+	${IMAGE_BUILDER} ${BUILDDIR}
 
 clean:
 	@echo
