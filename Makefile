@@ -5,7 +5,7 @@ CLUSTER_DESTROYER = ./destroy_cluster.sh
 BUILDDIR          = build
 
 ifndef INSTALLER_PATH
-override INSTALLER_PATH = https://github.com/openshift/installer/releases/download/v0.12.0/openshift-install-linux-amd64
+override INSTALLER_PATH = https://github.com/openshift/installer/releases/download/v0.13.0/openshift-install-linux-amd64
 endif
 
 help:
