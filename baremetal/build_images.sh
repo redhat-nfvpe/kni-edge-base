@@ -25,7 +25,9 @@ alias coreos-assembler="podman run --rm --net=host -ti --privileged --userns=hos
 coreos-assembler shell /srv/cosa_build_rhcos_image.sh
 
 # If image exists, convert to raw
+echo "Converting image to raw"
 if [ -f $BUILDDIR/cosa_build/builds/latest/redhat-coreos-maipo-47-qemu.qcow2 ]; then
+    cp $BUILDDIR/cosa_build/builds/latest/redhat-coreos-maipo-47-qemu.qcow2 $BUILDDIR/rhcos-qemu.qcow2
     qemu-img convert $BUILDDIR/cosa_build/builds/latest/redhat-coreos-maipo-47-qemu.qcow2 $BUILDDIR/rhcos-qemu.raw
     gzip -c $BUILDDIR/rhcos-qemu.raw > $BUILDDIR/rhcos-qemu.raw.gz
 else
