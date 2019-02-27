@@ -6,13 +6,10 @@ infrastructure across several footprints (AWS, Libvirt, Baremetal, etc).
 
 ## Dependencies
 
-You will need to create a CoreOS account on [http://account.coreos.com/](http://account.coreos.com/)
+You will need to create an account on [http://cloud.openshift.com/](http://cloud.openshift.com/)
 This is needed to have download access to the OpenShift installer artifacts.
-After that, you will need to download the Pull Secret, and format it in 1-line
-style.
-
-    { "auths": { "quay.io": { "auth": "XXX", "email": "" } } }
-
+After that, you will need to download the Pull Secret from
+[https://cloud.openshift.com/clusters/install](https://cloud.openshift.com/clusters/install)
 
 ## How to deploy
 

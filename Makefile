@@ -2,6 +2,7 @@
 #
 AWS_LAUNCHER      = ./aws/launch_deploy.sh
 CLUSTER_DESTROYER = ./destroy_cluster.sh
+IMAGE_BUILDER     = ./baremetal/build_images.sh
 BUILDDIR          = build
 
 ifndef INSTALLER_PATH
@@ -23,6 +24,11 @@ aws-3-node:
 	@echo
 	@echo "Launching aws 3-node deploy"
 	${AWS_LAUNCHER} 3-node ${BUILDDIR} ${CREDENTIALS} ${SETTINGS} ${INSTALLER_PATH}
+
+pxe-images:
+	@echo
+	@echo "Building PXE images for baremetal"
+	${IMAGE_BUILDER} ${BUILDDIR}
 
 clean:
 	@echo
