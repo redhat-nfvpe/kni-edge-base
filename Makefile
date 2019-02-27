@@ -1,6 +1,7 @@
 # Makefile for kni-edge deployments
 #
 AWS_LAUNCHER      = ./aws/launch_deploy.sh
+LIBVIRT_LAUNCHER  = ./libvirt/launch_deploy.sh
 CLUSTER_DESTROYER = ./destroy_cluster.sh
 IMAGE_BUILDER     = ./baremetal/build_images.sh
 BUILDDIR          = build
@@ -13,6 +14,7 @@ help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  aws-1-node CREDENTIALS=<github_repo> SETTINGS=<path_to_site_settings> to launch a deployment for aws in 1 node"
 	@echo "  aws-3-node CREDENTIALS=<github_repo> SETTINGS=<path_to_site_settings> to launch a deployment for aws in 3 node"
+	@echo "  libvirt-1-node CREDENTIALS=<github_repo> SETTINGS=<path_to_site_settings> to launch a deployment for libvirt in 1 node"
 	@echo "  clean to destroy a previously created cluster and remove build contents"
 
 aws-1-node:
@@ -24,6 +26,11 @@ aws-3-node:
 	@echo
 	@echo "Launching aws 3-node deploy"
 	${AWS_LAUNCHER} 3-node ${BUILDDIR} ${CREDENTIALS} ${SETTINGS} ${INSTALLER_PATH}
+
+libvirt-1-node:
+	@echo
+	@echo "Launching libvirt 1-node deploy"
+	${LIBVIRT_LAUNCHER} 1-node ${BUILDDIR} ${CREDENTIALS} ${SETTINGS} ${INSTALLER_PATH}
 
 pxe-images:
 	@echo
