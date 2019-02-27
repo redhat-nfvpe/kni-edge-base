@@ -3,6 +3,11 @@
 shopt -s expand_aliases
 BUILDDIR=$(pwd)/$1
 
+# create directory
+if [ ! -d "${BUILDDIR}" ]; then
+    mkdir ${BUILDDIR}
+fi
+
 # generate build directory
 if [ -d $BUILDDIR/cosa_build ]; then
     rm -rf $BUILDDIR/cosa_build
