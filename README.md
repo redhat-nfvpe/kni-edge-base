@@ -9,7 +9,7 @@ infrastructure across several footprints (AWS, Libvirt, Baremetal, etc).
 You will need to create an account on [http://cloud.openshift.com/](http://cloud.openshift.com/)
 This is needed to have download access to the OpenShift installer artifacts.
 After that, you will need to download the Pull Secret from
-[https://cloud.openshift.com/clusters/install](https://cloud.openshift.com/clusters/install)
+[https://cloud.openshift.com/clusters/install](https://cloud.openshift.com/clusters/install) - Step 4: Deploy the Cluster
 
 ## How to deploy
 
@@ -63,6 +63,17 @@ SETTINGS can be a path to local file, or an url, will be queried with curl.
 
 The make process will create the needed artifacts and will start the deployment
 of the specified cluster
+
+## How to use the cluster
+
+After the deployment finishes, a `kubeconfig` file will be placed inside
+build/auth directory:
+
+    export KUBECONFIG=./build/auth/kubeconfig
+
+Then cluster can be managed with oc. You can get the client on this link
+[https://cloud.openshift.com/clusters/install](https://cloud.openshift.com/clusters/install)
+- Step 5: Access your new cluster.
 
 ## How to destroy the cluster
 
