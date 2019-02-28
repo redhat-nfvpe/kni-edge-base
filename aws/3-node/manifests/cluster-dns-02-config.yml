@@ -1,0 +1,14 @@
+apiVersion: config.openshift.io/v1
+kind: DNS
+metadata:
+  creationTimestamp: null
+  name: cluster
+spec:
+  baseDomain: {{ settings.clusterName }}.{{ settings.baseDomain }}
+  privateZone:
+    tags:
+      Name: {{ settings.clusterName }}-int
+      kubernetes.io/cluster/{{ settings.clusterName }}: owned
+  publicZone:
+    id: {{ settings.AWSDNSZoneID }}
+status: {}

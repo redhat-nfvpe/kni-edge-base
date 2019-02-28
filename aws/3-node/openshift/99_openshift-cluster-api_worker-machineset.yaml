@@ -1,0 +1,138 @@
+apiVersion: v1
+items:
+- apiVersion: machine.openshift.io/v1beta1
+  kind: MachineSet
+  metadata:
+    creationTimestamp: null
+    labels:
+      sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+      sigs.k8s.io/cluster-api-machine-role: worker
+      sigs.k8s.io/cluster-api-machine-type: worker
+    name: {{ settings.clusterName }}-worker-{{ settings.AWSRegion }}a
+    namespace: openshift-machine-api
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+        sigs.k8s.io/cluster-api-machineset: {{ settings.clusterName }}-worker-{{ settings.AWSRegion }}a
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+          sigs.k8s.io/cluster-api-machine-role: worker
+          sigs.k8s.io/cluster-api-machine-type: worker
+          sigs.k8s.io/cluster-api-machineset: {{ settings.clusterName }}-worker-{{ settings.AWSRegion }}a
+      spec:
+        metadata:
+          creationTimestamp: null
+        providerSpec:
+          value:
+            ami:
+              id: {{ settings.AmiID }}
+            apiVersion: awsproviderconfig.openshift.io/v1beta1
+            blockDevices:
+            - ebs:
+                iops: 0
+                volumeSize: 120
+                volumeType: gp2
+            deviceIndex: 0
+            iamInstanceProfile:
+              id: {{ settings.clusterName }}-worker-profile
+            instanceType: m4.large
+            kind: AWSMachineProviderConfig
+            metadata:
+              creationTimestamp: null
+            placement:
+              availabilityZone: {{ settings.AWSRegion }}a
+              region: {{ settings.AWSRegion }}
+            publicIp: null
+            securityGroups:
+            - filters:
+              - name: tag:Name
+                values:
+                - {{ settings.clusterName }}-worker-sg
+            subnet:
+              filters:
+              - name: tag:Name
+                values:
+                - {{ settings.clusterName }}-private-{{ settings.AWSRegion }}a
+            tags:
+            - name: kubernetes.io/cluster/{{ settings.clusterName }}
+              value: owned
+            userDataSecret:
+              name: worker-user-data
+        versions:
+          kubelet: ""
+  status:
+    replicas: 0
+- apiVersion: machine.openshift.io/v1beta1
+  kind: MachineSet
+  metadata:
+    creationTimestamp: null
+    labels:
+      sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+      sigs.k8s.io/cluster-api-machine-role: worker
+      sigs.k8s.io/cluster-api-machine-type: worker
+    name: {{ settings.clusterName }}-worker-{{ settings.AWSRegion }}b
+    namespace: openshift-machine-api
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+        sigs.k8s.io/cluster-api-machineset: {{ settings.clusterName }}-worker-{{ settings.AWSRegion }}b
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}
+          sigs.k8s.io/cluster-api-machine-role: worker
+          sigs.k8s.io/cluster-api-machine-type: worker
+          sigs.k8s.io/cluster-api-machineset: {{ settings.clusterName }}-worker-{{ settings.AWSRegion }}b
+      spec:
+        metadata:
+          creationTimestamp: null
+        providerSpec:
+          value:
+            ami:
+              id: {{ settings.AmiID }}
+            apiVersion: awsproviderconfig.openshift.io/v1beta1
+            blockDevices:
+            - ebs:
+                iops: 0
+                volumeSize: 120
+                volumeType: gp2
+            deviceIndex: 0
+            iamInstanceProfile:
+              id: {{ settings.clusterName }}-worker-profile
+            instanceType: m4.large
+            kind: AWSMachineProviderConfig
+            metadata:
+              creationTimestamp: null
+            placement:
+              availabilityZone: {{ settings.AWSRegion }}b
+              region: {{ settings.AWSRegion }}
+            publicIp: null
+            securityGroups:
+            - filters:
+              - name: tag:Name
+                values:
+                - {{ settings.clusterName }}-worker-sg
+            subnet:
+              filters:
+              - name: tag:Name
+                values:
+                - {{ settings.clusterName }}-private-{{ settings.AWSRegion }}b
+            tags:
+            - name: kubernetes.io/cluster/{{ settings.clusterName }}
+              value: owned
+            userDataSecret:
+              name: worker-user-data
+        versions:
+          kubelet: ""
+  status:
+    replicas: 0
+kind: List
+metadata: {}
