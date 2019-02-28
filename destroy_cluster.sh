@@ -2,7 +2,7 @@
 
 BUILDDIR="$1"
 pushd ${BUILDDIR}
-./openshift-installer destroy cluster
+./openshift-install destroy cluster
 
 RESULT=$?
 

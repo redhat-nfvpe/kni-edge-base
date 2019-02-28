@@ -13,10 +13,10 @@ if [ ! -d "${BUILDDIR}" ]; then
 fi
 
 # download installer
-if [ ! -f "${BUILDDIR}/openshift-installer" ]; then
+if [ ! -f "${BUILDDIR}/openshift-install" ]; then
     echo "Downloading openshift installer"
-    curl -L ${INSTALLER_PATH} -o ${BUILDDIR}/openshift-installer
-    chmod a+x ${BUILDDIR}/openshift-installer
+    curl -L ${INSTALLER_PATH} -o ${BUILDDIR}/openshift-install
+    chmod a+x ${BUILDDIR}/openshift-install
 fi
 
 # install pip if it isn't installed
@@ -54,5 +54,5 @@ j2 -f yaml ./libvirt/${FOOTPRINT_TYPE}/install-config.yaml ${BUILDDIR}/settings.
 # launch the installer
 echo "Launching installer"
 pushd ${BUILDDIR}
-./openshift-installer create cluster
+./openshift-install create cluster
 popd
