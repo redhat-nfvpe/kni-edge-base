@@ -43,6 +43,7 @@ if [ -f $BUILDDIR/cosa_build/builds/latest/redhat-coreos-maipo-47.iso ]; then
     cp $BUILDDIR/iso_mount/vmlinuz $BUILDDIR/vmlinuz
     cp $BUILDDIR/iso_mount/initramfs.img $BUILDDIR/initrd.img
     chmod a+r $BUILDDIR/initrd.img
+    umount ${BUILDDIR}/iso_mount
 else
     echo "Failed to generate pxe images"
     exit 1
