@@ -96,7 +96,6 @@ Where:
 
 The rest of the options are exactly the same as in an AWS deployment.
 
-
 ## How to use the cluster
 
 After the deployment finishes, a `kubeconfig` file will be placed inside
@@ -126,3 +125,16 @@ Then you can export the path to the new installer before running make:
 
     export INSTALLER_PATH=http://<url_to_binary>/openshift-install
 
+## Customization: use your own manifests
+
+openshift-installer is also able to produce manifests, that end users can modify
+and deploy a cluster with the modified settings. New manifests can be generated
+with:
+
+    /path/to/openshift-install create manifests
+
+This will generate a pair of folders: manifests and openshift. Those manifests
+can be modified with the desired values. After that this code can be executed to
+generate a new cluster based on the modified manifests:
+
+    /path/to/openshift-install create cluster
