@@ -70,7 +70,7 @@ First of all, we need to prepare a host in order to configure libvirt, iptables,
 
 [https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md](https://github.com/openshift/installer/blob/master/docs/dev/libvirt-howto.md)
 
-Unfortunately, Libvirt is only for development purposes from the OpenShift perspective, so binary is not compiled with the libvirt bits. The user will have to compile it by his/her own.
+Unfortunately, Libvirt is only for development purposes from the OpenShift perspective, so the binary is not compiled with the libvirt bits by default. The user will have to compile it by his/her own version with libvirt enabled.
 The link pasted above, also contains the instructions to compile the installer with the correct tags. Once it is compiled correctly, you will have to point to the binary from the execution command (make).
 
 There is only one target for Livirt right now, and it will deploy 1 Master VM and 1 Worker VM.
@@ -90,12 +90,11 @@ A sample settings.yaml file has been created specifically for Libvirt targets. I
       libvirtURI: "<libvirt_host_ip>"
 
 Where:
-- `<base_domain>` is the DNS zone matching with the one created on Route53
+- `<base_domain>` is the DNS zone matching with the entry created in /etc/NetworkManager/dnsmasq.d/openshift.conf during the libvirt-howto machine setup. (tt.testing by default)
 - `<cluster_name>` is the name you are going to give to the cluster
 - `<libvirt_host_ip>` is the host IP where libvirt is configured (i.e. qemu+tcp://192.168.122.1/system)
 
 The rest of the options are exactly the same as in an AWS deployment.
-
 
 ## How to use the cluster
 
