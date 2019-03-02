@@ -13,7 +13,7 @@ override INSTALLER_PATH = https://github.com/openshift/installer/releases/downlo
 endif
 
 ifndef INSTALLER_GIT_TAG
-override INSTALLER_GIT_TAG = "v0.13.0"
+override INSTALLER_GIT_TAG = "v0.13.1"
 endif
 
 ifndef GOPATH
