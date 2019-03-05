@@ -1,0 +1,17 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: Cluster
+metadata:
+  creationTimestamp: null
+  name: {{ settings.clusterName }}
+  namespace: openshift-machine-api
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - {{ settings.clusterCIDR }}
+    serviceDomain: ""
+    services:
+      cidrBlocks:
+      - {{ settings.serviceCIDR }}
+  providerSpec: {}
+status: {}

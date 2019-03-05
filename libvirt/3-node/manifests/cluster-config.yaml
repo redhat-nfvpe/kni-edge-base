@@ -1,0 +1,35 @@
+apiVersion: v1
+data:
+  install-config: |
+    apiVersion: v1beta3
+    baseDomain: {{ settings.baseDomain }}
+    compute:
+    - name: worker
+      platform: {}
+      replicas: 3
+    controlPlane:
+      name: master
+      platform: {}
+      replicas: 3
+    metadata:
+      creationTimestamp: null
+      name: {{ settings.clusterName }}
+    networking:
+      clusterNetworks:
+      - cidr: {{ settings.clusterCIDR }}
+        hostSubnetLength: {{ settings.hostSubnetLength }}
+      machineCIDR: {{ settings.machineCIDR }}
+      serviceCIDR: {{ settings.serviceCIDR }}
+      type: {{ settings.SDNType }}
+    platform:
+      libvirt:
+        URI: {{ settings.libvirtURI }}
+        network:
+          if: tt0
+    pullSecret: '{{ settings.pullSecret }}'
+    sshKey: |
+      {{ settings.sshKey }}
+kind: ConfigMap
+metadata:
+  name: cluster-config-v1
+  namespace: kube-system

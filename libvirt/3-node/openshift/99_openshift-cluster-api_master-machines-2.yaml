@@ -1,0 +1,36 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: Machine
+metadata:
+  creationTimestamp: null
+  labels:
+    sigs.k8s.io/cluster-api-cluster: {{ settings.clusterName }}-6glhp
+    sigs.k8s.io/cluster-api-machine-role: master
+    sigs.k8s.io/cluster-api-machine-type: master
+  name: {{ settings.clusterName }}-master-2
+  namespace: openshift-machine-api
+spec:
+  metadata:
+    creationTimestamp: null
+  providerSpec:
+    value:
+      apiVersion: libvirtproviderconfig.k8s.io/v1alpha1
+      autostart: false
+      cloudInit: null
+      domainMemory: 4096
+      domainVcpu: 2
+      ignKey: ""
+      ignition:
+        userDataSecret: master-user-data
+      kind: LibvirtMachineProviderConfig
+      networkInterfaceAddress: {{ settings.machineCIDR }}
+      networkInterfaceHostname: ""
+      networkInterfaceName: {{ settings.clusterName }}-6glhp
+      networkUUID: ""
+      uri: {{ settings.libvirtURI }}
+      volume:
+        baseVolumeID: /var/lib/libvirt/images/{{ settings.clusterName }}-base
+        poolName: default
+        volumeName: ""
+  versions:
+    kubelet: ""
+status: {}
