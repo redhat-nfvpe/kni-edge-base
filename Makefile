@@ -45,7 +45,7 @@ libvirt-1-node:
 
 pxe-images:
 	@echo
-	@echo "Building PXE images for baremetal"
+	@echo "Building PXE images for baremetal (only for internal Red Hat use)"
 	${IMAGE_BUILDER} ${BUILDDIR}
 
 binary:
