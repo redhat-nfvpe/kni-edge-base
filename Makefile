@@ -43,6 +43,11 @@ libvirt-1-node:
 	@echo "Launching libvirt 1-node deploy"
 	${LIBVIRT_LAUNCHER} 1-node ${BUILDDIR} ${CREDENTIALS} ${SETTINGS} ${INSTALLER_PATH}
 
+libvirt-3-node:
+	@echo
+	@echo "Launching libvirt 3-node deploy"
+	${LIBVIRT_LAUNCHER} 3-node ${BUILDDIR} ${CREDENTIALS} ${SETTINGS} ${INSTALLER_PATH}
+
 pxe-images:
 	@echo
 	@echo "Building PXE images for baremetal (only for internal Red Hat use)"
