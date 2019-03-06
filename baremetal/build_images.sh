@@ -21,8 +21,7 @@ cp ./baremetal/cosa_build_rhcos_image.sh $BUILDDIR/cosa_build/
 
 # Install coreos-assembler
 echo "Installing coreos assembler"
-alias coreos-assembler="podman run --rm --net=host -ti --privileged
---userns=host --dns='10.10.160.1' --dns-search='corp.redhat.com' --dns-search='cee.redhat.com' -v $BUILDDIR/cosa_build:/srv --workdir /srv quay.io/coreos-assembler/coreos-assembler:latest"
+alias coreos-assembler="podman run --rm --net=host -ti --privileged --userns=host --dns='10.10.160.1' --dns-search='corp.redhat.com' --dns-search='cee.redhat.com' -v $BUILDDIR/cosa_build:/srv --workdir /srv quay.io/coreos-assembler/coreos-assembler:latest"
 coreos-assembler shell /srv/cosa_build_rhcos_image.sh
 
 # If image exists, convert to raw
