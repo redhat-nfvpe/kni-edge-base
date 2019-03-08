@@ -21,6 +21,6 @@ networking:
 platform:
   libvirt:
     URI: {{ .libvirtURI }}
-pullSecret: '{{ .pullSecret }}'
+pullSecret: '{{ .coreos-pull-secret }}'
 sshKey: |
-  {{ .SSHKey }}
+  {{ .ssh-pub-key }}
